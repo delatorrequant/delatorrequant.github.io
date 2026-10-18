@@ -170,20 +170,6 @@ h3{font-size:19px;font-weight:700;line-height:var(--u);color:#1d2128}
 .fracaso .pendiente{font-family:"Kalam",cursive;color:var(--rojo);font-size:18px;font-style:normal}
 .fracaso .sigue{color:var(--tinta);font-weight:500}
 
-/* ───────── la racha ───────── */
-.racha-num{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:18px}
-.racha-num .n{font-variant-numeric:tabular-nums;font-size:56px;font-weight:900;color:var(--tinta);line-height:1;letter-spacing:-.04em}
-.cal{display:grid;grid-template-rows:repeat(7,14px);grid-auto-flow:column;grid-auto-columns:14px;gap:4px;overflow-x:auto;padding:4px 2px 10px}
-.d{border-radius:2px;background:rgba(255,255,255,.75);border:1px solid var(--cuadro)}
-.d.l1{background:rgba(30,58,158,.32);border-color:transparent}
-.d.l2{background:var(--tinta);border-color:transparent}
-.d.l3{background:var(--marca);border:2px solid var(--tinta)}
-.d.hoy{outline:2px solid var(--rojo);outline-offset:1px}
-.d.futuro{background:transparent;border-style:dashed}
-.leyenda{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-size:14.5px;color:var(--gris)}
-.leyenda span{display:inline-flex;align-items:center;gap:6px}
-.leyenda .d{width:13px;height:13px;display:inline-block}
-
 /* ───────── reglas ───────── */
 .reglas{list-style:none;columns:2;column-gap:36px}
 .reglas li{break-inside:avoid;padding-left:26px;position:relative;margin-bottom:12px}
@@ -235,7 +221,6 @@ footer{grid-column:2;padding:calc(var(--u)*3) 32px calc(var(--u)*3) 40px;max-wid
   <a href="#ahora">Ahora mismo</a>
   <a href="#proyectos">Proyectos</a>
   <a href="#fracasos">Fracasos</a>
-  <a href="#racha">La racha</a>
   <a href="#contacto">Contacto</a>
 </nav>
 
@@ -370,27 +355,6 @@ footer{grid-column:2;padding:calc(var(--u)*3) 32px calc(var(--u)*3) 40px;max-wid
   </section>
 </div>
 
-<!-- ═══════════ LA RACHA ═══════════ -->
-<div class="bloque" id="racha">
-  <p class="nota">desde el<br>17 ago</p>
-  <section class="cuerpo" aria-labelledby="t-racha">
-    <h2 id="t-racha">La racha</h2>
-    <div class="racha-num">
-      <span class="n" id="dias">0</span>
-      <span>días publicando, racha actual <b id="seguidos">0</b></span>
-    </div>
-    <div class="cal" id="cal" role="img" aria-label="Calendario de días publicados desde el 17 de agosto de 2026"></div>
-    <div class="leyenda">
-      <span><i class="d"></i>sin publicar</span>
-      <span><i class="d l1"></i>publiqué</span>
-      <span><i class="d l2"></i>publiqué y hubo commit</span>
-      <span><i class="d l3"></i>terminé algo</span>
-      <span><i class="d hoy"></i>hoy</span>
-    </div>
-    <p class="suave" style="margin-top:14px">Está casi vacía porque eso es lo que hay. Es la métrica que me importa ahorita, no los seguidores.</p>
-  </section>
-</div>
-
 <!-- ═══════════ REGLAS ═══════════ -->
 <div class="bloque">
   <p class="nota">no se negocian</p>
@@ -429,36 +393,5 @@ footer{grid-column:2;padding:calc(var(--u)*3) 32px calc(var(--u)*3) 40px;max-wid
 
 </div>
 
-<script>
-/* ═══════════ LA RACHA ═══════════
-   EDITA AQUÍ: una línea por día que publicaste, formato "AAAA-MM-DD": nivel
-   1 = publiqué · 2 = publiqué y hubo commit · 3 = terminé un artefacto            */
-const PUB = {
-  // "2026-10-13": 2,
-};
-const INICIO = "2026-08-17";   // domingo de arranque, no lo cambies
-const SEMANAS = 26;
-
-const iso = d => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
-const cal = document.getElementById("cal");
-const inicio = new Date(INICIO + "T00:00:00");
-const hoyISO = iso(new Date());
-let total = 0, seguidos = 0;
-
-for (let i = 0; i < SEMANAS * 7; i++) {
-  const d = new Date(inicio); d.setDate(inicio.getDate() + i);
-  const k = iso(d), nivel = PUB[k] || 0;
-  const c = document.createElement("i");
-  c.className = "d";
-  if (k > hoyISO) c.classList.add("futuro");
-  else if (nivel) { total++; seguidos++; c.classList.add("l" + nivel); }
-  else if (k !== hoyISO) seguidos = 0;      // hoy todavía no cuenta como día perdido
-  if (k === hoyISO) c.classList.add("hoy");
-  c.title = k + (nivel ? " · nivel " + nivel : "");
-  cal.appendChild(c);
-}
-document.getElementById("dias").textContent = total;
-document.getElementById("seguidos").textContent = seguidos;
-</script>
 </body>
 </html>
