@@ -4,18 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Diego González de la Torre — De la Torre Quant</title>
-<meta name="description" content="Estudio Ingeniería Financiera en el ITESO, me preparo para operar cuantitativamente y estoy empezando Circulante. Aquí están mis proyectos, lo que sale bien y lo que no.">
+<meta name="description" content="Me preparo para ser quant y lo comparto sin humo y sin cortinas: el código, los números y lo que no sale también.">
 <meta property="og:title" content="Diego González de la Torre — De la Torre Quant">
-<meta property="og:description" content="Ingeniería Financiera en el ITESO, De la Torre Quant en YouTube y Circulante. Guadalajara.">
+<meta property="og:description" content="Finanzas cuantitativas sin humo y sin cortinas.">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#0f2a4a">
 <meta name="color-scheme" content="light">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23c70066'/><text x='16' y='22' text-anchor='middle' font-family='Arial Black,Arial' font-weight='900' font-size='15' fill='white'>DT</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&display=swap" rel="stylesheet">
 <style>
-/* Una revista de una sola edición: blanco, tinta y rosa mexicano. */
+/* Blanco, azul marino y un acento rosa mexicano que se usa poco. */
 :root{
   --papel:#ffffff;
   --tinta:#15171c;
@@ -23,6 +23,8 @@
   --linea:#e6e6ea;
   --rosa:#c70066;
   --rosa-claro:#fdeef5;
+  --azul:#0f2a4a;
+  --azul-claro:#f3f5f8;
   --ancho:1180px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -39,33 +41,33 @@ a:focus-visible{outline:2px solid var(--rosa);outline-offset:4px;border-radius:2
 .marco{max-width:var(--ancho);margin:0 auto;padding:0 40px}
 
 /* ───────── cabecera de la revista ───────── */
-.cabecera{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding-top:26px;padding-bottom:22px}
-.logo{font-family:"Archivo",sans-serif;font-stretch:125%;font-weight:850;font-size:17px;letter-spacing:-.01em;text-decoration:none}
+.cabecera{border-bottom:1px solid var(--linea);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding-top:26px;padding-bottom:22px}
+.logo{font-family:"Archivo",sans-serif;font-stretch:110%;font-weight:800;color:var(--azul);font-size:17px;letter-spacing:-.01em;text-decoration:none}
 .logo span{color:var(--rosa)}
 .cabecera nav{display:flex;gap:26px;flex-wrap:wrap;font-family:"Archivo",sans-serif;font-size:15px}
 .cabecera nav a{text-decoration:none;color:var(--gris)}
 .cabecera nav a:hover{color:var(--tinta)}
 
 /* ───────── portada ───────── */
-.portada{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:56px;align-items:end;padding-top:56px;padding-bottom:88px}
+.portada{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:72px;align-items:center;padding-top:72px;padding-bottom:96px}
 .fecha{font-family:"Archivo",sans-serif;font-size:15px;color:var(--gris);margin-bottom:22px}
 h1{
-  font-family:"Archivo",sans-serif;font-stretch:118%;font-weight:880;
-  font-size:clamp(54px,8.4vw,118px);line-height:.92;letter-spacing:-.035em;
+  font-family:"Archivo",sans-serif;font-stretch:104%;font-weight:800;color:var(--azul);
+  font-size:clamp(44px,6.2vw,86px);line-height:1;letter-spacing:-.03em;
 }
-.entrada{margin-top:34px;font-size:23px;line-height:1.5;max-width:34ch}
+.entrada{margin-top:30px;font-size:22px;line-height:1.55;max-width:40ch;color:#2c313a}
 .retrato .foto{
-  position:relative;aspect-ratio:4/5;background:var(--rosa);overflow:hidden;
+  position:relative;aspect-ratio:4/5;background:var(--azul-claro);border:1px solid var(--linea);overflow:hidden;
   display:flex;align-items:flex-end;padding:22px;
 }
-.retrato .iniciales{font-family:"Archivo",sans-serif;font-stretch:125%;font-weight:900;font-size:clamp(72px,9vw,128px);line-height:.8;color:#fff;letter-spacing:-.04em}
+.retrato .iniciales{font-family:"Archivo",sans-serif;font-stretch:125%;font-weight:900;font-size:clamp(72px,9vw,128px);line-height:.8;color:var(--azul);letter-spacing:-.04em}
 .retrato img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .retrato figcaption{font-family:"Archivo",sans-serif;font-size:13.5px;color:var(--gris);margin-top:10px}
 
 /* ───────── la cita tachada (el único momento animado) ───────── */
-.cita{background:var(--rosa-claro);padding:96px 0 88px}
+.cita{background:var(--azul-claro);border-top:1px solid var(--linea);border-bottom:1px solid var(--linea);padding:88px 0 80px}
 .cita .marco{max-width:980px}
-.promesa{font-style:italic;font-size:clamp(30px,4.6vw,56px);line-height:1.18;font-weight:420;color:#4a4e57}
+.promesa{font-style:italic;font-size:clamp(28px,3.8vw,46px);line-height:1.2;font-weight:400;color:#5a606b}
 .tachado{
   -webkit-box-decoration-break:clone;box-decoration-break:clone;
   background-image:linear-gradient(var(--rosa),var(--rosa));
@@ -75,7 +77,7 @@ h1{
 .cita.visible .tachado{background-size:100% .09em}
 .correccion{
   margin-top:26px;font-family:"Archivo",sans-serif;font-weight:800;font-stretch:108%;
-  font-size:clamp(22px,2.8vw,34px);line-height:1.2;letter-spacing:-.015em;color:var(--rosa);max-width:24ch;
+  font-size:clamp(22px,2.8vw,34px);line-height:1.2;letter-spacing:-.015em;color:var(--azul);max-width:28ch;
   opacity:0;transform:translateY(8px);transition:opacity .6s ease .75s,transform .6s ease .75s;
 }
 .cita.visible .correccion{opacity:1;transform:none}
@@ -84,33 +86,34 @@ h1{
 /* ───────── secciones ───────── */
 .seccion{padding-top:96px}
 .dos{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:56px}
-h2{font-family:"Archivo",sans-serif;font-stretch:115%;font-weight:850;font-size:clamp(34px,4vw,50px);line-height:1;letter-spacing:-.03em}
+h2{font-family:"Archivo",sans-serif;font-stretch:104%;font-weight:800;font-size:clamp(28px,3vw,40px);line-height:1.08;letter-spacing:-.025em;color:var(--azul)}
 .bajada{margin-top:14px;color:var(--gris);font-size:17.5px;max-width:28ch}
-h3{font-family:"Archivo",sans-serif;font-weight:800;font-stretch:105%;font-size:24px;line-height:1.15;letter-spacing:-.015em}
+h3{font-family:"Archivo",sans-serif;font-weight:750;font-stretch:102%;font-size:22px;line-height:1.2;letter-spacing:-.012em}
 .estado{display:inline-block;font-family:"Archivo",sans-serif;font-weight:700;font-size:14px;color:var(--rosa);margin-bottom:10px}
 
 /* ahora mismo */
-.ahora{list-style:none;border-top:2px solid var(--tinta)}
+.ahora{list-style:none;border-top:2px solid var(--azul)}
 .ahora li{padding:22px 0;border-bottom:1px solid var(--linea);max-width:62ch}
 .ahora li b{font-family:"Archivo",sans-serif;font-weight:750;font-size:18px;display:block;margin-bottom:4px}
 .ahora .meta{color:var(--rosa);font-style:italic}
 .ahora li.hecho,.ahora li.hecho b{color:var(--gris)}
 
 /* proyectos */
-.destacado{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:56px;margin-top:44px;padding:44px;background:var(--tinta);color:#f1f1f3}
-.destacado h3{font-size:clamp(34px,4.2vw,56px);font-stretch:118%;font-weight:880;letter-spacing:-.03em;line-height:1}
-.destacado .estado{color:#ff7ab8}
-.destacado .tipo{font-family:"Archivo",sans-serif;font-size:15px;color:#b5b8c0;margin-top:14px}
+.destacado{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:56px;margin-top:44px;padding:48px;background:var(--azul);color:#eef2f7}
+.destacado h3{font-size:clamp(30px,3.4vw,44px);font-stretch:104%;font-weight:800;letter-spacing:-.025em;line-height:1.05}
+.destacado .estado{color:#ff8fc2}
+.destacado .tipo{font-family:"Archivo",sans-serif;font-size:15px;color:#a9b6c8;margin-top:12px}
 .destacado p + p{margin-top:14px}
-.trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;margin-top:44px}
-.trio article{border-top:2px solid var(--tinta);padding-top:18px}
-.trio .tipo{font-family:"Archivo",sans-serif;font-size:14px;color:var(--gris);margin-top:6px;margin-bottom:12px}
-.trio p{font-size:18px}
-.trio .ir{margin-top:12px;font-family:"Archivo",sans-serif;font-weight:700;font-size:15.5px}
+.destacado .ir a{color:#fff}
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:56px;margin-top:44px}
+.duo article{border-top:2px solid var(--azul);padding-top:18px}
+.duo .tipo{font-family:"Archivo",sans-serif;font-size:14px;color:var(--gris);margin-top:6px;margin-bottom:12px}
+.duo p{font-size:18px}
+.duo .ir{margin-top:12px;font-family:"Archivo",sans-serif;font-weight:700;font-size:15.5px}
 
 /* lo que no salió */
 .fracasos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:56px;margin-top:44px}
-.fracaso h3{font-size:28px;margin-bottom:18px}
+.fracaso h3{font-size:24px;margin-bottom:16px;color:var(--azul)}
 .fracaso dt{font-family:"Archivo",sans-serif;font-size:13.5px;font-weight:700;color:var(--gris);margin-top:16px}
 .fracaso dd{margin-top:2px}
 .fracaso .dijo{font-style:italic;color:var(--gris);text-decoration:line-through;text-decoration-color:var(--rosa);text-decoration-thickness:2px}
@@ -119,17 +122,17 @@ h3{font-family:"Archivo",sans-serif;font-weight:800;font-stretch:105%;font-size:
 .fracaso .sigue{font-family:"Archivo",sans-serif;font-weight:750;color:var(--rosa);font-size:18px}
 
 /* reglas */
-.reglas-banda{margin-top:110px;background:var(--rosa);color:#fff;padding:84px 0}
+.reglas-banda{margin-top:110px;background:var(--azul);color:#fff;padding:80px 0}
 .reglas-banda h2{color:#fff}
 .reglas{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 48px}
-.reglas li{font-size:clamp(21px,2.2vw,27px);line-height:1.3;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.35)}
+.reglas li{font-size:clamp(19px,1.9vw,23px);line-height:1.35;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.22)}
 
 /* contacto */
-.enlaces{list-style:none;border-top:2px solid var(--tinta)}
+.enlaces{list-style:none;border-top:2px solid var(--azul)}
 .enlaces li{display:flex;justify-content:space-between;align-items:baseline;gap:8px 24px;flex-wrap:wrap;padding:18px 0;border-bottom:1px solid var(--linea)}
-.enlaces a{font-family:"Archivo",sans-serif;font-stretch:115%;font-weight:850;font-size:clamp(26px,3.4vw,42px);letter-spacing:-.025em;line-height:1.1;text-decoration:none}
+.enlaces a{font-family:"Archivo",sans-serif;font-stretch:104%;font-weight:750;font-size:clamp(22px,2.4vw,30px);letter-spacing:-.02em;line-height:1.15;text-decoration:none;color:var(--azul)}
 .enlaces span{font-family:"Archivo",sans-serif;font-size:15px;color:var(--gris)}
-.enlaces li.correo a{font-size:clamp(20px,2.6vw,30px)}
+.enlaces li.correo a{font-size:clamp(19px,2.1vw,26px)}
 
 footer{padding-top:96px;padding-bottom:56px}
 .legal{font-family:"Archivo",sans-serif;font-size:13px;line-height:1.6;color:var(--gris);max-width:78ch;border-top:1px solid var(--linea);padding-top:20px}
@@ -149,7 +152,7 @@ footer{padding-top:96px;padding-bottom:56px}
   .seccion{padding-top:72px}
   .dos{grid-template-columns:minmax(0,1fr);gap:22px}
   .destacado{grid-template-columns:minmax(0,1fr);gap:20px;padding:28px 22px;margin-left:-20px;margin-right:-20px}
-  .trio,.fracasos{grid-template-columns:minmax(0,1fr);gap:36px}
+  .duo,.fracasos{grid-template-columns:minmax(0,1fr);gap:36px}
   .reglas-banda{margin-top:80px;padding:60px 0}
   .reglas{grid-template-columns:minmax(0,1fr)}
 }
@@ -164,7 +167,7 @@ footer{padding-top:96px;padding-bottom:56px}
 <header class="marco cabecera">
   <a class="logo" href="#">De la Torre <span>Quant</span></a>
   <nav aria-label="Secciones">
-    <a href="#ahora">Ahora mismo</a>
+    <a href="#objetivo">Lo que busco</a>
     <a href="#proyectos">Proyectos</a>
     <a href="#no-salio">Lo que no salió</a>
     <a href="#contacto">Contacto</a>
@@ -176,44 +179,39 @@ footer{padding-top:96px;padding-bottom:56px}
 <!-- ═══════════ PORTADA ═══════════ -->
 <section class="marco portada">
   <div>
-    <p class="fecha">Guadalajara, 18 de octubre de 2026</p>
     <h1>Diego González de la Torre</h1>
-    <p class="entrada">Estudio Ingeniería Financiera en el ITESO, tengo 18 años y vivo en Guadalajara, y lo que estoy haciendo es prepararme para operar cuantitativamente, o sea construir y probar sistemas con código y datos, a la vez de que estoy empezando Circulante y acabo de abrir el canal de YouTube de De la Torre Quant.</p>
+    <p class="entrada">Estudio Ingeniería Financiera y me estoy preparando para ser quant, y lo que quiero con De la Torre Quant es ayudar a los demás a recorrer este camino como es de verdad, o sea sin humo y sin cortinas, con el código, los números y lo que no sale también.</p>
   </div>
 
-  <!-- TU FOTO: sube un archivo llamado foto.jpg a este repo (vertical, de preferencia 4:5).
+  <!-- TU FOTO: sube un archivo llamado foto.jpg a este repo (vertical, de preferencia 4:5). Que no muestre dónde vives.
        Mientras no exista, se ve el bloque rosa con tus iniciales. -->
   <figure class="retrato">
     <div class="foto">
       <span class="iniciales" aria-hidden="true">DT</span>
       <img src="foto.jpg" alt="Diego González de la Torre" onerror="this.remove()">
     </div>
-    <figcaption>Diego, en Guadalajara</figcaption>
   </figure>
 </section>
 
 <!-- ═══════════ LA CITA ═══════════ -->
-<section class="cita" id="cita" aria-label="Lo que prometí y lo que pasó">
+<section class="cita" id="cita" aria-label="Sin humo y sin cortinas">
   <div class="marco">
-    <p class="promesa"><span class="tachado">“Voy a publicar todos los días desde el 19 de agosto.”</span></p>
-    <p class="correccion">Pasaron 7 semanas sin publicar nada. Volví el 12 de octubre.</p>
-    <p class="cierre">Esta página es donde dejo eso a la vista, lo que funciona y lo que no, con el número y con la fecha, para que le sirva a quien va en lo mismo, porque prepararse en serio no se parece en nada a lo que te venden en internet. No doy señales ni le digo a nadie qué comprar.</p>
+    <p class="promesa"><span class="tachado">“Haz dinero desde tu celular con esta estrategia.”</span></p>
+    <p class="correccion">Aquí no vas a encontrar eso.</p>
+    <p class="cierre">Lo que vas a encontrar es el proceso real, lo que se estudia, lo que se programa y las pruebas que funcionan y las que no, todo con el número y a la vista, para que le sirva a quien va en lo mismo. No doy señales ni le digo a nadie qué comprar.</p>
   </div>
 </section>
 
-<!-- ═══════════ AHORA MISMO ═══════════
-     Actualízalo cada domingo. Al terminar algo, ponle class="hecho" al <li>. -->
-<section class="marco seccion dos" id="ahora">
+<!-- ═══════════ LO QUE QUIERO LOGRAR ═══════════ -->
+<section class="marco seccion dos" id="objetivo">
   <div>
-    <h2>Ahora mismo</h2>
-    <p class="bajada sans">Actualizado el 18 de octubre</p>
+    <h2>Lo que quiero lograr</h2>
+    <p class="bajada sans">Con De la Torre Quant</p>
   </div>
   <ul class="ahora">
-    <li><b>Walk-forward del cruce de medias en el IPC</b>Busco los mejores parámetros con datos de 2000 a 2015 y luego los aplico sin tocarlos a 2016-2026, es decir veo si lo que funcionó en el pasado sigue funcionando cuando ya no lo puedes ajustar. <span class="meta">Mi hipótesis es que se derrumba fuera de muestra, pero si aguanta eso es lo que voy a publicar.</span></li>
-    <li><b>Circulante</b>Estoy en la fase cero, o sea entrevistas con dueños de empresa para entender cómo manejan lo que les deben antes de ofrecerle nada a nadie. <span class="meta">La primera meta es un contrato firmado antes del 30 de noviembre.</span></li>
-    <li><b>El canal de YouTube</b>Lo acabo de empezar, y lo que voy a subir ahí es el proceso completo de cada proyecto, o sea la construcción en pantalla, no el resumen.</li>
-    <li><b>El semestre en el ITESO</b>Lo que vea en clase que se pueda aterrizar con código lo subo, y si una semana el parcial se come todo también lo digo.</li>
-    <li class="hecho"><b>Rehacer esta página</b>Hecho, el 18 de octubre.</li>
+    <li><b>Que se entienda cómo funcionan las finanzas cuantitativas de verdad</b>Con el código y los datos a la vista, es decir lo que hay detrás de cada número, no capturas de ganancias.</li>
+    <li><b>Mostrar lo que cuesta el camino completo</b>Lo que se estudia, lo que se programa y lo que no sale, con el mismo detalle que lo que sí.</li>
+    <li><b>Que quien va empezando no caiga en el humo</b>Ni en las señales, ni en los cursos milagro, ni en las promesas de ingreso.</li>
   </ul>
 </section>
 
@@ -221,41 +219,33 @@ footer{padding-top:96px;padding-bottom:56px}
 <section class="marco seccion" id="proyectos">
   <div class="dos">
     <h2>Proyectos</h2>
-    <p class="bajada sans" style="margin-top:0;max-width:44ch">No todo es quant. Esto es lo que tengo en marcha.</p>
+    <p class="bajada sans" style="margin-top:0;max-width:44ch">Lo que tengo en marcha.</p>
   </div>
 
   <article class="destacado">
     <div>
-      <span class="estado">Arrancando</span>
-      <h3>Circulante</h3>
-      <p class="tipo">Finanzas para empresas en Jalisco</p>
+      <span class="estado">En YouTube</span>
+      <h3>De la Torre Quant</h3>
+      <p class="tipo">Mi marca</p>
     </div>
     <div>
-      <p>Una firma financiera en Jalisco que ayuda a las empresas a cobrar el dinero que ya ganaron, es decir las facturas vencidas de 30 a 120 días que nadie dentro de la empresa tiene tiempo de perseguir. Se trabaja desde el WhatsApp del propio cliente, él aprueba cada mensaje y el dinero nunca pasa por mi cuenta, los deudores le pagan directo a él.</p>
-      <p>Lo voy a documentar aquí igual que lo demás: cuántas entrevistas, cuántos diagnósticos y si alguien paga.</p>
+      <p>Donde documento cómo me preparo para operar cuantitativamente: lo que estudio, lo que programo y las pruebas que corro, con el código abierto y sin esconder lo que no funciona.</p>
+      <p class="ir"><a href="https://www.youtube.com/@DelaTorreQuant">Ver el canal</a></p>
     </div>
   </article>
 
-  <div class="trio">
-    <article>
-      <span class="estado">En curso</span>
-      <h3>Walk-forward en el IPC</h3>
-      <p class="tipo">Quant, en Python y pandas</p>
-      <p>El arnés que voy a reusar para probar cualquier estrategia: descarga del IPC desde 2000, métricas, búsqueda de parámetros, prueba fuera de muestra y costos de operación. El código va a ser público.</p>
-      <!-- Cuando el repo exista: <p class="ir"><a href="https://github.com/delatorrequant/walk-forward-ipc">Ver el código</a></p> -->
-    </article>
+  <div class="duo">
     <article>
       <span class="estado">Arrancando</span>
-      <h3>Canal de YouTube</h3>
-      <p class="tipo">Marca personal</p>
-      <p>El canal de De la Torre Quant. Aquí va la construcción completa de cada proyecto, incluidos los que no funcionan.</p>
-      <p class="ir"><a href="https://www.youtube.com/@DelaTorreQuant">Ver el canal</a></p>
+      <h3>Circulante</h3>
+      <p class="tipo">Finanzas para empresas</p>
+      <p>Ayudo a empresas a cobrar el dinero que ya ganaron. El cliente aprueba cada mensaje y el dinero nunca pasa por mi cuenta.</p>
     </article>
     <article>
-      <span class="estado">Funciona</span>
-      <h3>Esta página</h3>
-      <p class="tipo">Personal</p>
-      <p>Un solo archivo HTML, sin frameworks, hecho con IA. La rehíce las veces que hizo falta hasta que dijera algo de mí.</p>
+      <span class="estado">En curso</span>
+      <h3>Sistemas cuantitativos</h3>
+      <p class="tipo">Quant, en Python</p>
+      <p>Pruebas de estrategias con datos reales y la metodología abierta, incluidas las que se derrumban.</p>
     </article>
   </div>
 </section>
