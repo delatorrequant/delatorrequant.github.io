@@ -3,402 +3,470 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Diego de la Torre — DeLaTorre Quant</title>
-<meta name="description" content="Ing. Financiera en ITESO. Construyo sistemas cuantitativos en público: el código abierto y los que fallaron también. Guadalajara.">
-<meta property="og:title" content="Diego de la Torre — DeLaTorre Quant">
-<meta property="og:description" content="Construyo sistemas cuantitativos en público. El código abierto y los backtests que fallaron también.">
+<title>Diego González de la Torre — DeLaTorre Quant</title>
+<meta name="description" content="Estudio Ingeniería Financiera en el ITESO y me preparo para operar cuantitativamente. Aquí dejo mis proyectos, lo que funciona y lo que no, con el número y la fecha.">
+<meta property="og:title" content="Diego González de la Torre — DeLaTorre Quant">
+<meta property="og:description" content="Me prometí publicar todos los días. Pasaron 7 semanas sin publicar nada. Aquí está todo, con fecha.">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#0b0916">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230b0916'/><path d='M6 22 L12 14 L17 19 L26 8' stroke='%2325e6c8' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+<meta name="theme-color" content="#f7f9fc">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23f7f9fc'/><path d='M5 23 L12 15 L17 19 L27 8' stroke='%231e3a9e' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/><path d='M6 9 L26 24' stroke='%23d0202e' stroke-width='2.4' stroke-linecap='round'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════ TOKENS ═══════════════ */
+/* ───────────────────────────────────────────────
+   Un cuaderno de cuadrícula: tinta azul para lo que
+   escribo, pluma roja para lo que me corrijo.
+   ─────────────────────────────────────────────── */
 :root{
-  --ink:#0b0916;
-  --ink2:#120e21;
-  --card:rgba(255,255,255,.035);
-  --line:rgba(255,255,255,.09);
-
-  --tx:#ece9f7;
-  --mut:#9d96b8;
-  --dim:#6c6489;
-
-  --cy:#25e6c8;   /* proceso quant   */
-  --co:#ff5f7e;   /* negocio         */
-  --am:#ffc857;   /* carrera         */
-  --vi:#9d7bff;   /* acento frío     */
+  --papel:#f7f9fc;
+  --cuadro:#dde8f4;
+  --tinta:#1e3a9e;
+  --rojo:#d0202e;
+  --grafito:#363b44;
+  --gris:#68707d;
+  --marca:#ffe45c;
+  --margen:#e3868f;
+  --u:28px;               /* un cuadrito del cuaderno */
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{
-  background:var(--ink);
-  color:var(--tx);
-  font:16px/1.65 ui-sans-serif,-apple-system,"Segoe UI",Inter,Roboto,sans-serif;
+  background-color:var(--papel);
+  background-image:
+    linear-gradient(var(--cuadro) 1px,transparent 1px),
+    linear-gradient(90deg,var(--cuadro) 1px,transparent 1px);
+  background-size:var(--u) var(--u);
+  color:var(--grafito);
+  font:17px/var(--u) "Schibsted Grotesk",system-ui,sans-serif;
   -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
+}
+.mano{font-family:"Kalam",cursive;font-weight:400}
+a{color:var(--tinta);text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{background:linear-gradient(transparent 50%,var(--marca) 50%);text-decoration:none}
+a:focus-visible{outline:2px dashed var(--rojo);outline-offset:3px;border-radius:2px}
+b,strong{font-weight:700;color:#1d2128}
+
+/* ───────── la hoja: margen rojo a la izquierda ───────── */
+.hoja{
+  max-width:1020px;margin:0 auto;
+  display:grid;grid-template-columns:150px minmax(0,1fr);
   position:relative;
 }
-.mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace}
+.hoja::before{ /* línea de margen doble, como en el cuaderno */
+  content:"";position:absolute;top:0;bottom:0;left:150px;width:5px;
+  border-left:1.5px solid var(--margen);border-right:1.5px solid var(--margen);
+  pointer-events:none;
+}
+.nota{ /* lo que va escrito en el margen */
+  grid-column:1;padding:4px 18px 0 16px;text-align:right;
+  font-family:"Kalam",cursive;font-size:17px;line-height:22px;color:var(--tinta);
+}
+.nota.roja{color:var(--rojo)}
+.cuerpo{grid-column:2;padding:0 32px 0 40px;max-width:760px}
+.bloque{display:contents}
+.bloque > .cuerpo,.bloque > .nota{margin-top:calc(var(--u)*3)}
 
-/* ═══════════════ FONDO ═══════════════ */
-/* malla de gradientes + grano, todo CSS, cero imágenes */
-body::before{
-  content:"";position:fixed;inset:-30%;z-index:-2;pointer-events:none;
-  background:
-    radial-gradient(38rem 30rem at 12% 4%,  rgba(37,230,200,.16), transparent 60%),
-    radial-gradient(34rem 28rem at 92% 16%, rgba(255,95,126,.14), transparent 60%),
-    radial-gradient(40rem 34rem at 62% 88%, rgba(157,123,255,.15), transparent 62%),
-    radial-gradient(26rem 22rem at 8% 74%,  rgba(255,200,87,.10), transparent 60%);
-  filter:blur(14px);
-  animation:drift 26s ease-in-out infinite alternate;
-}
-@keyframes drift{
-  from{transform:translate3d(0,0,0) scale(1)}
-  to  {transform:translate3d(2.5%,-2%,0) scale(1.07)}
-}
-body::after{ /* grano */
-  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.05;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
-}
+/* ───────── índice ───────── */
+nav{grid-column:2;padding:var(--u) 32px 0 40px;display:flex;gap:22px;flex-wrap:wrap;font-size:15px}
+nav a{color:var(--gris);text-decoration:none}
+nav a:hover{color:var(--tinta)}
 
-.wrap{max-width:760px;margin:0 auto;padding:0 24px 96px}
-
-/* ═══════════════ HERO ═══════════════ */
-header{padding:96px 0 8px}
-.chip{
-  display:inline-flex;align-items:center;gap:9px;
-  font-family:ui-monospace,Menlo,monospace;font-size:12.5px;letter-spacing:.04em;
-  color:var(--cy);background:rgba(37,230,200,.09);
-  border:1px solid rgba(37,230,200,.25);border-radius:100px;
-  padding:6px 14px;margin-bottom:26px;
-}
-.pulse{
-  width:7px;height:7px;border-radius:50%;background:var(--cy);
-  box-shadow:0 0 0 0 rgba(37,230,200,.6);animation:pulse 2.4s infinite;
-}
-@keyframes pulse{
-  70%{box-shadow:0 0 0 9px rgba(37,230,200,0)}
-  100%{box-shadow:0 0 0 0 rgba(37,230,200,0)}
-}
+/* ───────── encabezado ───────── */
+.arriba{padding-top:calc(var(--u)*2)}
 h1{
-  font-size:clamp(38px,8.2vw,68px);font-weight:700;letter-spacing:-.035em;line-height:1.02;
-  background:linear-gradient(104deg,#fff 8%,var(--cy) 42%,var(--vi) 74%,var(--co) 98%);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-  background-size:220% 100%;
-  animation:shift 13s ease-in-out infinite alternate;
+  font-weight:900;color:var(--tinta);
+  font-size:clamp(42px,7.4vw,78px);line-height:1.02;letter-spacing:-.03em;
+  max-width:11ch;
 }
-@keyframes shift{from{background-position:0% 50%}to{background-position:100% 50%}}
-.role{
-  margin-top:16px;font-size:17px;color:var(--mut);max-width:46ch;
-}
-.role b{color:var(--tx);font-weight:600}
+.intro{margin-top:var(--u);max-width:58ch;font-size:18px}
+.intro + .intro{margin-top:14px}
 
-.tesis{
-  margin:38px 0 12px;padding:24px 26px;position:relative;
-  background:linear-gradient(135deg,rgba(37,230,200,.07),rgba(157,123,255,.05));
-  border:1px solid var(--line);border-radius:16px;
-  font-size:17.5px;line-height:1.55;color:#dcd7ee;
+.retrato{
+  float:right;margin:0 0 var(--u) 28px;width:188px;
+  background:#fff;padding:10px 10px 6px;transform:rotate(3deg);
+  box-shadow:0 1px 2px rgba(30,58,158,.12),0 8px 22px rgba(30,58,158,.12);
+  position:relative;
 }
-.tesis::before{
-  content:"";position:absolute;left:0;top:18px;bottom:18px;width:3px;border-radius:3px;
-  background:linear-gradient(180deg,var(--cy),var(--vi),var(--co));
+.retrato::before{ /* cinta */
+  content:"";position:absolute;top:-12px;left:50%;width:86px;height:26px;
+  transform:translateX(-50%) rotate(-4deg);
+  background:rgba(255,228,92,.62);box-shadow:0 1px 1px rgba(0,0,0,.05);
 }
+.retrato img,.retrato svg{display:block;width:100%;aspect-ratio:1;object-fit:cover;background:#eef3fa}
+.retrato figcaption{font-family:"Kalam",cursive;font-size:17px;color:var(--tinta);text-align:center;padding-top:4px}
 
-/* ═══════════════ TICKER ═══════════════ */
-.ticker{
-  margin:44px -100vw;padding:13px 0;overflow:hidden;
-  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-  background:rgba(255,255,255,.02);
-  -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
-          mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+/* ───────── la corrección con pluma roja (el único momento animado) ───────── */
+.promesa{
+  margin-top:calc(var(--u)*2);clear:none;
+  font-size:clamp(20px,2.6vw,26px);line-height:1.35;font-weight:500;color:var(--grafito);
+  max-width:32ch;
 }
-.track{display:flex;width:max-content;animation:roll 34s linear infinite}
-.track:hover{animation-play-state:paused}
-@keyframes roll{to{transform:translateX(-50%)}}
-.tk{
-  display:inline-flex;align-items:center;gap:11px;padding:0 26px;
-  font-family:ui-monospace,Menlo,monospace;font-size:12.5px;letter-spacing:.06em;
-  text-transform:uppercase;color:var(--mut);white-space:nowrap;
+.tachado{
+  -webkit-box-decoration-break:clone;box-decoration-break:clone;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12' preserveAspectRatio='none'%3E%3Cpath d='M1 7 C 20 3, 40 10, 60 6 S 100 3, 119 7' fill='none' stroke='%23d0202e' stroke-width='3.4' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:0 58%;background-size:0% .42em;
+  animation:tachar .75s cubic-bezier(.6,.05,.3,1) .9s forwards;
 }
-.tk i{width:5px;height:5px;border-radius:50%;background:var(--co);flex-shrink:0}
+@keyframes tachar{to{background-size:100% .42em}}
+.correccion{
+  display:block;margin-top:10px;max-width:34ch;
+  font-family:"Kalam",cursive;font-weight:700;color:var(--rojo);
+  font-size:clamp(22px,2.9vw,29px);line-height:1.3;transform:rotate(-1.2deg);transform-origin:left;
+  clip-path:inset(0 100% 0 0);
+  animation:escribir 1.5s steps(28,end) 1.75s forwards;
+}
+@keyframes escribir{to{clip-path:inset(0 0 0 0)}}
+.cierre{margin-top:var(--u);max-width:58ch;font-size:18px}
 
-/* ═══════════════ SECCIONES ═══════════════ */
-section{margin-top:72px}
-.stag{
-  display:flex;align-items:center;gap:12px;margin-bottom:20px;
-  font-family:ui-monospace,Menlo,monospace;font-size:11.5px;font-weight:600;
-  letter-spacing:.16em;text-transform:uppercase;color:var(--dim);
-}
-.stag::after{content:"";flex:1;height:1px;background:var(--line)}
+/* ───────── títulos de sección ───────── */
+h2{font-size:30px;font-weight:800;letter-spacing:-.02em;line-height:var(--u);color:var(--tinta);margin-bottom:var(--u)}
+h3{font-size:19px;font-weight:700;line-height:var(--u);color:#1d2128}
+.cuerpo p{max-width:62ch}
+.cuerpo p + p{margin-top:12px}
+.suave{color:var(--gris)}
 
-/* ── racha ── */
-.streaknum{display:flex;align-items:baseline;gap:12px;margin-bottom:18px;flex-wrap:wrap}
-.big{
-  font-size:52px;font-weight:750;letter-spacing:-.04em;line-height:1;
-  background:linear-gradient(120deg,var(--cy),var(--vi));
-  -webkit-background-clip:text;background-clip:text;color:transparent;
+/* ───────── ahora mismo ───────── */
+.ahora{list-style:none}
+.ahora li{padding-left:34px;position:relative;margin-bottom:18px;max-width:62ch}
+.ahora li::before{
+  content:"";position:absolute;left:4px;top:7px;width:14px;height:14px;
+  border:2px solid var(--tinta);border-radius:3px 5px 3px 4px;transform:rotate(-3deg);
 }
-.grid{
-  display:grid;grid-template-rows:repeat(7,1fr);grid-auto-flow:column;
-  gap:4px;overflow-x:auto;padding-bottom:8px;
-}
-.cell{
-  width:13px;height:13px;border-radius:3.5px;
-  background:rgba(255,255,255,.05);
-  transition:transform .14s,background .2s;
-}
-.cell:hover{transform:scale(1.45)}
-.cell.l1{background:rgba(37,230,200,.30)}
-.cell.l2{background:rgba(37,230,200,.58)}
-.cell.l3{background:var(--cy);box-shadow:0 0 9px rgba(37,230,200,.45)}
-.gkey{display:flex;align-items:center;gap:7px;margin-top:12px;font-size:11.5px;color:var(--dim)}
+.ahora li.hecho::before{background:
+  linear-gradient(45deg,transparent 42%,var(--tinta) 42% 58%,transparent 58%),
+  linear-gradient(-45deg,transparent 42%,var(--tinta) 42% 58%,transparent 58%)}
+.resalta{background:linear-gradient(transparent 52%,rgba(255,228,92,.85) 52%);padding:0 2px}
 
-/* ── pilares ── */
-.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.pl{
-  position:relative;padding:22px 20px 20px;border-radius:15px;overflow:hidden;
-  background:var(--card);border:1px solid var(--line);
-  transition:transform .22s cubic-bezier(.2,.8,.3,1),border-color .22s;
+/* ───────── proyectos ───────── */
+.proyectos{list-style:none}
+.proy{padding:18px 0 22px;border-bottom:1.5px dashed var(--cuadro)}
+.proy:last-child{border-bottom:0}
+.proy-cab{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.proy p{margin-top:6px;max-width:60ch}
+.proy .tipo{font-size:14.5px;color:var(--gris);margin-top:2px}
+.sello{
+  font-family:"Kalam",cursive;font-weight:700;font-size:16px;line-height:1;
+  padding:6px 13px 4px;border:2px solid currentColor;
+  border-radius:48% 52% 45% 55% / 60% 46% 54% 40%;
+  transform:rotate(-4deg);white-space:nowrap;
 }
-.pl:hover{transform:translateY(-5px)}
-.pl::before{content:"";position:absolute;inset:0 0 auto 0;height:3px}
-.pl.a::before{background:linear-gradient(90deg,var(--cy),transparent)}
-.pl.b::before{background:linear-gradient(90deg,var(--co),transparent)}
-.pl.c::before{background:linear-gradient(90deg,var(--am),transparent)}
-.pl.a:hover{border-color:rgba(37,230,200,.4)}
-.pl.b:hover{border-color:rgba(255,95,126,.4)}
-.pl.c:hover{border-color:rgba(255,200,87,.4)}
-.pct{font-family:ui-monospace,Menlo,monospace;font-size:24px;font-weight:700;letter-spacing:-.03em}
-.pl.a .pct{color:var(--cy)} .pl.b .pct{color:var(--co)} .pl.c .pct{color:var(--am)}
-.pl h3{font-size:15.5px;font-weight:640;margin:7px 0 8px}
-.pl p{font-size:13.5px;color:var(--mut);line-height:1.5}
+.s-curso{color:#8a6a00;background:rgba(255,228,92,.55);border-color:#c9a100}
+.s-funciona{color:var(--tinta)}
+.s-arranca{color:var(--tinta);border-style:dashed}
+.s-muerto{color:var(--rojo)}
+.proy.muerto h3{text-decoration:line-through;text-decoration-color:var(--rojo);text-decoration-thickness:2px}
 
-/* ── sistemas ── */
-.sys{
-  display:block;position:relative;padding:20px 22px;margin-bottom:12px;
-  background:var(--card);border:1px solid var(--line);border-radius:15px;
-  text-decoration:none;color:inherit;overflow:hidden;
-  transition:transform .22s cubic-bezier(.2,.8,.3,1),border-color .22s,background .22s;
-}
-a.sys:hover{transform:translateY(-4px);border-color:rgba(37,230,200,.4);background:rgba(255,255,255,.055)}
-.sh{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
-.st{font-weight:640;font-size:16.5px;letter-spacing:-.01em}
-.badge{
-  font-family:ui-monospace,Menlo,monospace;font-size:10.5px;font-weight:600;
-  letter-spacing:.09em;text-transform:uppercase;
-  padding:4px 11px;border-radius:100px;flex-shrink:0;border:1px solid;
-}
-.b-live{color:var(--cy);border-color:rgba(37,230,200,.4);background:rgba(37,230,200,.09)}
-.b-wip {color:var(--am);border-color:rgba(255,200,87,.4);background:rgba(255,200,87,.09)}
-.b-dead{color:var(--dim);border-color:var(--line);background:rgba(255,255,255,.03)}
-.sd{font-size:14px;color:var(--mut);margin-top:9px}
-.sn{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--dim);margin-top:11px}
-.ghost{border-style:dashed;background:transparent}
+/* ───────── fracasos ───────── */
+.fracaso{padding:var(--u) 0;border-top:1.5px solid var(--cuadro)}
+.fracaso:first-of-type{border-top:0;padding-top:0}
+.fracaso h3{font-size:22px;margin-bottom:10px}
+.fracaso dl{display:grid;grid-template-columns:132px minmax(0,1fr);column-gap:18px;row-gap:12px}
+.fracaso dt{font-family:"Kalam",cursive;font-size:17px;color:var(--gris);line-height:var(--u)}
+.fracaso dd{max-width:58ch}
+.fracaso dd.dijo{text-decoration:line-through;text-decoration-color:var(--rojo);text-decoration-thickness:2px;color:var(--gris)}
+.fracaso dd.lectura{font-style:italic}
+.fracaso .pendiente{font-family:"Kalam",cursive;color:var(--rojo);font-size:18px;font-style:normal}
+.fracaso .sigue{color:var(--tinta);font-weight:500}
 
-/* ── links ── */
-.links{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.lk{
-  position:relative;display:flex;justify-content:space-between;align-items:center;
-  padding:17px 20px;border-radius:14px;text-decoration:none;
-  background:var(--card);border:1px solid var(--line);color:var(--tx);
-  font-weight:560;overflow:hidden;
-  transition:transform .22s cubic-bezier(.2,.8,.3,1),border-color .22s;
-}
-.lk span{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;color:var(--dim);letter-spacing:.04em}
-.lk::after{
-  content:"↗";position:absolute;right:20px;opacity:0;transform:translateX(-6px);
-  transition:.22s;color:var(--cy);font-size:14px;
-}
-.lk:hover{transform:translateY(-4px);border-color:rgba(37,230,200,.45)}
-.lk:hover span{opacity:0}
-.lk:hover::after{opacity:1;transform:translateX(0)}
+/* ───────── la racha ───────── */
+.racha-num{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.racha-num .n{font-variant-numeric:tabular-nums;font-size:56px;font-weight:900;color:var(--tinta);line-height:1;letter-spacing:-.04em}
+.cal{display:grid;grid-template-rows:repeat(7,14px);grid-auto-flow:column;grid-auto-columns:14px;gap:4px;overflow-x:auto;padding:4px 2px 10px}
+.d{border-radius:2px;background:rgba(255,255,255,.75);border:1px solid var(--cuadro)}
+.d.l1{background:rgba(30,58,158,.32);border-color:transparent}
+.d.l2{background:var(--tinta);border-color:transparent}
+.d.l3{background:var(--marca);border:2px solid var(--tinta)}
+.d.hoy{outline:2px solid var(--rojo);outline-offset:1px}
+.d.futuro{background:transparent;border-style:dashed}
+.leyenda{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-size:14.5px;color:var(--gris)}
+.leyenda span{display:inline-flex;align-items:center;gap:6px}
+.leyenda .d{width:13px;height:13px;display:inline-block}
 
-/* ── pie ── */
-footer{
-  margin-top:88px;padding:26px;border-radius:16px;
-  background:rgba(255,95,126,.045);border:1px solid rgba(255,95,126,.16);
-  font-size:12.5px;line-height:1.65;color:var(--mut);
-}
-footer b{color:#e8dfe9}
-footer a{color:var(--mut);text-decoration:underline;text-decoration-color:rgba(157,150,184,.35)}
-.sig{margin-top:22px;text-align:center;font-size:12px;color:var(--dim)}
+/* ───────── reglas ───────── */
+.reglas{list-style:none;columns:2;column-gap:36px}
+.reglas li{break-inside:avoid;padding-left:26px;position:relative;margin-bottom:12px}
+.reglas li::before{content:"✓";position:absolute;left:2px;top:0;font-family:"Kalam",cursive;font-weight:700;color:var(--tinta);font-size:20px}
 
-/* ── revelado al hacer scroll ── */
-.rev{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.3,1)}
-.rev.on{opacity:1;transform:none}
+/* ───────── contacto ───────── */
+.donde{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 36px;max-width:620px}
+.donde li span{display:block;font-size:14.5px;color:var(--gris)}
+.donde a{font-size:19px;font-weight:700}
 
-@media(max-width:680px){
-  header{padding:64px 0 4px}
-  .pillars,.links{grid-template-columns:1fr}
-  .tesis{font-size:16px;padding:20px 20px}
-  .big{font-size:42px}
-  section{margin-top:56px}
+/* ───────── pie ───────── */
+footer{grid-column:2;padding:calc(var(--u)*3) 32px calc(var(--u)*3) 40px;max-width:760px}
+.legal{font-size:14px;line-height:22px;color:var(--gris);padding:18px 20px;background:rgba(247,249,252,.92);border:1.5px solid var(--cuadro);border-radius:4px}
+.legal b{color:var(--grafito)}
+.firma{margin-top:var(--u);font-family:"Kalam",cursive;font-size:18px;color:var(--tinta)}
+
+/* ───────── teléfono ───────── */
+@media (max-width:760px){
+  :root{--u:26px}
+  body{font-size:16.5px}
+  .hoja{grid-template-columns:minmax(0,1fr)}
+  .hoja::before{left:14px}
+  .nota{grid-column:1;text-align:left;padding:0 20px 0 36px;font-size:16px}
+  .cuerpo,nav,footer{grid-column:1;padding-left:36px;padding-right:20px}
+  .bloque > .cuerpo{margin-top:6px}
+  .bloque > .nota{margin-top:calc(var(--u)*2.5)}
+  .arriba{padding-top:var(--u)}
+  .bloque:first-of-type > .nota{margin-top:var(--u)}
+  .retrato{float:none;width:136px;margin:6px 0 22px 4px}
+  h1{font-size:44px}
+  .intro,.cierre{font-size:17px}
+  .fracaso dl{grid-template-columns:minmax(0,1fr);row-gap:2px}
+  .fracaso dd{margin-bottom:10px}
+  .reglas{columns:1}
+  .donde{grid-template-columns:minmax(0,1fr)}
+  nav{gap:6px 18px}
 }
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation:none!important;transition:none!important}
-  .rev{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .tachado{animation:none;background-size:100% .42em}
+  .correccion{animation:none;clip-path:none}
 }
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="hoja">
 
-<!-- ═══════════ HERO ═══════════ -->
-<header>
-  <div class="chip mono"><span class="pulse"></span>@delatorrequant · construyendo en público</div>
-  <h1>Diego<br>de la Torre</h1>
-  <p class="role"><b>Ingeniería Financiera en el ITESO.</b> Construyo sistemas cuantitativos y publico el código, los supuestos y los que no funcionaron. Guadalajara, México.</p>
+<nav aria-label="Índice">
+  <a href="#ahora">Ahora mismo</a>
+  <a href="#proyectos">Proyectos</a>
+  <a href="#fracasos">Fracasos</a>
+  <a href="#racha">La racha</a>
+  <a href="#contacto">Contacto</a>
+</nav>
 
-  <div class="tesis">
-    Prepararse en serio para operar cuantitativamente no se parece en nada a lo que te venden.
-    Aquí está lo que de verdad cuesta: las clases, el código, los backtests que fallan
-    y el negocio que paga la cuenta.
-  </div>
-</header>
+<!-- ═══════════ ENCABEZADO ═══════════ -->
+<div class="bloque">
+  <p class="nota arriba">18 oct 2026<br>Guadalajara</p>
+  <header class="cuerpo arriba">
 
-<!-- ═══════════ TICKER ═══════════ -->
-<div class="ticker">
-  <div class="track" id="track"></div>
+    <!-- TU FOTO: sube un archivo llamado foto.jpg a este repo (cuadrada de preferencia).
+         Mientras no exista, se ve el dibujo de abajo. -->
+    <figure class="retrato">
+      <img src="foto.jpg" alt="Diego González de la Torre" width="168" height="168"
+           onerror="this.remove();document.getElementById('dibujo').style.display='block'">
+      <svg id="dibujo" viewBox="0 0 168 168" style="display:none" aria-hidden="true">
+        <rect width="168" height="168" fill="#eef3fa"/>
+        <path d="M20 128 L52 96 L74 112 L104 66 L126 84 L150 40" fill="none" stroke="#1e3a9e" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M104 66 L126 84 L150 40" fill="none" stroke="#d0202e" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 9"/>
+        <text x="20" y="44" font-family="Kalam,cursive" font-size="30" font-weight="700" fill="#1e3a9e">DT</text>
+      </svg>
+      <figcaption>Diego, GDL</figcaption>
+    </figure>
+
+    <h1>Diego González de la Torre</h1>
+
+    <p class="intro">Estudio Ingeniería Financiera en el ITESO, tengo 18 años y vivo en Guadalajara, y lo que estoy haciendo es prepararme para operar cuantitativamente, o sea construir y probar sistemas con código y datos, a la vez de que arranco un negocio que le hace páginas y contenido a comercios de Jalisco y que es el que tiene que pagar el camino.</p>
+
+    <p class="promesa">
+      <span class="tachado">“Voy a publicar todos los días desde el 19 de agosto.”</span>
+      <span class="correccion">Pasaron 7 semanas sin publicar nada. Volví el 12 de octubre.</span>
+    </p>
+
+    <p class="cierre">Esta página es donde dejo eso a la vista, lo que funciona y lo que no, con el número y con la fecha, porque prepararse en serio no se parece en nada a lo que te venden en internet. No doy señales ni le digo a nadie qué comprar.</p>
+  </header>
 </div>
 
-<!-- ═══════════ RACHA ═══════════
-     EDITA el array PUB[] al final del archivo: una fecha "AAAA-MM-DD" por cada día que publicaste.
-     Nivel 1 = publicaste · 2 = publicaste + commit · 3 = artefacto terminado
-     ══════════════════════════════ -->
-<section class="rev">
-  <div class="stag mono">La única métrica de esta fase</div>
-  <div class="streaknum">
-    <span class="big mono" id="days">0</span>
-    <span style="color:var(--mut);font-size:15px">días publicando · racha actual <b class="mono" id="streak" style="color:var(--tx)">0</b></span>
-  </div>
-  <div class="grid" id="grid"></div>
-  <div class="gkey">
-    <span>menos</span>
-    <span class="cell"></span><span class="cell l1"></span><span class="cell l2"></span><span class="cell l3"></span>
-    <span>más</span>
-    <span style="margin-left:auto">seguidores: irrelevante por ahora</span>
-  </div>
-</section>
+<!-- ═══════════ AHORA MISMO ═══════════
+     Actualízalo cada domingo. Cambia la fecha del margen.
+     <li class="hecho"> marca la casilla con una X. -->
+<div class="bloque" id="ahora">
+  <p class="nota">actualizado<br>18 oct</p>
+  <section class="cuerpo" aria-labelledby="t-ahora">
+    <h2 id="t-ahora">Ahora mismo</h2>
+    <ul class="ahora">
+      <li><b>Walk-forward del cruce de medias en el IPC.</b> Busco los mejores parámetros con datos de 2000 a 2015 y luego los aplico sin tocarlos a 2016-2026, es decir veo si lo que funcionó en el pasado sigue funcionando cuando ya no lo puedes ajustar. <span class="resalta">Mi hipótesis es que se derrumba fuera de muestra, pero si aguanta eso es lo que voy a publicar.</span></li>
+      <li><b>El semestre en el ITESO.</b> Lo que vea en clase que se pueda aterrizar con código lo subo, y si una semana el parcial se come todo también lo digo.</li>
+      <li class="hecho"><b>Rehacer esta página.</b> Hoy, 18 de octubre.</li>
+    </ul>
+  </section>
+</div>
 
-<!-- ═══════════ PILARES ═══════════ -->
-<section class="rev">
-  <div class="stag mono">Qué publico, y en qué proporción</div>
-  <div class="pillars">
-    <div class="pl a">
-      <div class="pct mono">55%</div>
-      <h3>El proceso quant</h3>
-      <p>Lo que estudio, lo que programo, los backtests que corro — y los que fallan. Con el número y con el repo abierto.</p>
+<!-- ═══════════ PROYECTOS ═══════════
+     Un <li class="proy"> por proyecto. Sellos:
+       s-curso (en curso) · s-funciona · s-arranca (arrancando) · s-muerto (abandonado / me rendí)
+     A los abandonados agrégales la clase "muerto". No se borran. -->
+<div class="bloque" id="proyectos">
+  <p class="nota">5 hasta hoy,<br>2 muertos</p>
+  <section class="cuerpo" aria-labelledby="t-proy">
+    <h2 id="t-proy">Proyectos</h2>
+    <p class="suave" style="margin-bottom:10px">No todo es quant. Esto es todo lo que he empezado, incluido lo que dejé.</p>
+    <ul class="proyectos">
+
+      <li class="proy">
+        <div class="proy-cab"><h3>Walk-forward en el IPC</h3><span class="sello s-curso">en curso</span></div>
+        <p class="tipo">Quant, en Python y pandas</p>
+        <p>El arnés que voy a reusar para probar cualquier estrategia: descarga del IPC desde 2000, métricas, búsqueda de parámetros, prueba fuera de muestra y costos de operación. El código va a ser público.</p>
+        <!-- Cuando el repo exista: <p><a href="https://github.com/delatorrequant/walk-forward-ipc">Ver el código</a></p> -->
+      </li>
+
+      <li class="proy">
+        <div class="proy-cab"><h3>Raíz Digital</h3><span class="sello s-arranca">arrancando</span></div>
+        <p class="tipo">Negocio, es una agencia</p>
+        <p>Una agencia para comercios locales de Jalisco: páginas web, contenido y marketing, todo hecho apoyándome en herramientas de IA. No tengo formación en desarrollo web, y eso también es parte de lo que documento.</p>
+      </li>
+
+      <li class="proy">
+        <div class="proy-cab"><h3>Esta página</h3><span class="sello s-funciona">funciona</span></div>
+        <p class="tipo">Personal</p>
+        <p>Un solo archivo HTML, sin frameworks, hecho con IA. La primera versión era una página oscura con porcentajes de contenido, y la rehíce porque no decía nada de mí.</p>
+      </li>
+
+      <li class="proy muerto">
+        <div class="proy-cab"><h3>Dashboard de análisis de mercado</h3><span class="sello s-muerto">lo abandoné</span></div>
+        <p class="tipo">Quant</p>
+        <p>Estuvo anunciado aquí como “en construcción” desde agosto, y nunca lo empecé. Está en Fracasos.</p>
+      </li>
+
+      <li class="proy muerto">
+        <div class="proy-cab"><h3>Tienda de e-commerce</h3><span class="sello s-muerto">me rendí</span></div>
+        <p class="tipo">Negocio</p>
+        <p>Ejercitadores de mandíbula y más. Construí la tienda, le hice marketing y nada funcionó.</p>
+      </li>
+
+    </ul>
+  </section>
+</div>
+
+<!-- ═══════════ FRACASOS ═══════════
+     Un <article class="fracaso"> por fracaso.
+     "Lo que dije" va tachado. "Mi lectura" es opcional y siempre dice cuántos casos la sostienen.
+     Si te faltan números, déjalos en <span class="pendiente"> hasta que los tengas. -->
+<div class="bloque" id="fracasos">
+  <p class="nota roja">con números,<br>sin rescate</p>
+  <section class="cuerpo" aria-labelledby="t-frac">
+    <h2 id="t-frac">Fracasos</h2>
+
+    <article class="fracaso">
+      <h3>Publicar todos los días</h3>
+      <dl>
+        <dt>Lo que dije</dt>
+        <dd class="dijo">19 de agosto: 1 o 2 posts diarios en X, un commit diario en GitHub y una bitácora cada viernes.</dd>
+        <dt>Lo que pasó</dt>
+        <dd>7 domingos seguidos sin mandar un solo número a mi propia revisión semanal. Cuando volví, el 12 de octubre, llevaba 3 posts y 0 commits.</dd>
+        <dt>Mi lectura</dt>
+        <dd class="lectura">Yo pensaba que me faltaban ideas de qué publicar, o sea eso fue lo primero que pregunté cuando volví, y no era eso, era que no tenía nada terminado de lo cual publicar. Es un solo caso, el mío.</dd>
+        <dt>Lo que sigue</dt>
+        <dd class="sigue">Ningún post sin un commit detrás.</dd>
+      </dl>
+    </article>
+
+    <article class="fracaso">
+      <h3>El dashboard que nunca empecé</h3>
+      <dl>
+        <dt>Lo que dije</dt>
+        <dd class="dijo">Agosto: un dashboard de análisis de mercado, terminado y público en el mes 2.</dd>
+        <dt>Lo que pasó</dt>
+        <dd>No escribí la primera línea. Estuvo dos meses en esta misma página con la etiqueta de “en construcción”.</dd>
+        <dt>Lo que sigue</dt>
+        <dd class="sigue">Lo cambié por un proyecto de 4 a 6 horas que sí cabe en una semana: el walk-forward del IPC.</dd>
+      </dl>
+    </article>
+
+    <article class="fracaso">
+      <h3>La tienda en línea</h3>
+      <dl>
+        <dt>Lo que pasó</dt>
+        <dd>Construí la tienda, le hice marketing y nada funcionó. Al final me rendí. <span class="pendiente">Me faltan los números: cuánto invertí, cuánto duró y cuánto vendí.</span></dd>
+        <dt>Lo que sigue</dt>
+        <dd class="sigue">Lo que sigo sin saber es si el problema era el producto o el canal.</dd>
+      </dl>
+    </article>
+  </section>
+</div>
+
+<!-- ═══════════ LA RACHA ═══════════ -->
+<div class="bloque" id="racha">
+  <p class="nota">desde el<br>17 ago</p>
+  <section class="cuerpo" aria-labelledby="t-racha">
+    <h2 id="t-racha">La racha</h2>
+    <div class="racha-num">
+      <span class="n" id="dias">0</span>
+      <span>días publicando, racha actual <b id="seguidos">0</b></span>
     </div>
-    <div class="pl b">
-      <div class="pct mono">25%</div>
-      <h3>El negocio que lo paga</h3>
-      <p>Cómo financio esto sin vender cursos. Contado como costo del camino, nunca como resultado.</p>
+    <div class="cal" id="cal" role="img" aria-label="Calendario de días publicados desde el 17 de agosto de 2026"></div>
+    <div class="leyenda">
+      <span><i class="d"></i>sin publicar</span>
+      <span><i class="d l1"></i>publiqué</span>
+      <span><i class="d l2"></i>publiqué y hubo commit</span>
+      <span><i class="d l3"></i>terminé algo</span>
+      <span><i class="d hoy"></i>hoy</span>
     </div>
-    <div class="pl c">
-      <div class="pct mono">20%</div>
-      <h3>La carrera</h3>
-      <p>Un tema de clase aterrizado con código. Qué sirve de la carrera y qué no.</p>
-    </div>
-  </div>
-</section>
+    <p class="suave" style="margin-top:14px">Está casi vacía porque eso es lo que hay. Es la métrica que me importa ahorita, no los seguidores.</p>
+  </section>
+</div>
 
-<!-- ═══════════ SISTEMAS ═══════════
-     Duplica un bloque .sys por cada sistema.
-     Badge: b-live (funcionando) · b-wip (en construcción) · b-dead (abandonado)
-     Con repo: cambia <div class="sys"> por <a class="sys" href="URL">
-     ══════════════════════════════ -->
-<section class="rev">
-  <div class="stag mono">Sistemas</div>
+<!-- ═══════════ REGLAS ═══════════ -->
+<div class="bloque">
+  <p class="nota">no se negocian</p>
+  <section class="cuerpo" aria-labelledby="t-reglas">
+    <h2 id="t-reglas">Reglas que me puse</h2>
+    <ul class="reglas">
+      <li>Si no tiene un número, no se publica.</li>
+      <li>Los fracasos con el mismo detalle que lo que sale bien.</li>
+      <li>El código siempre abierto.</li>
+      <li>Cero señales y cero promesas de ingreso.</li>
+      <li>Nunca manejo dinero de otras personas.</li>
+      <li>Si hablo de algo que tengo, lo digo.</li>
+    </ul>
+  </section>
+</div>
 
-  <div class="sys">
-    <div class="sh">
-      <span class="st">Dashboard de análisis de mercado</span>
-      <span class="badge b-wip mono">en construcción</span>
-    </div>
-    <p class="sd">Descarga, limpia y grafica datos de mercado. Python, pandas, desplegado.</p>
-    <p class="sn mono">criterio de fracaso → si no corre en la máquina de alguien más en 5 min, no cuenta.</p>
-  </div>
+<!-- ═══════════ CONTACTO ═══════════ -->
+<div class="bloque" id="contacto">
+  <p class="nota">aquí sigo<br>el proceso</p>
+  <section class="cuerpo" aria-labelledby="t-cont">
+    <h2 id="t-cont">Dónde estoy</h2>
+    <ul class="donde">
+      <li><a href="https://x.com/delatorrequant">X</a><span>Lo de cada día, con el número</span></li>
+      <li><a href="https://github.com/delatorrequant">GitHub</a><span>El código, incluido el que no funcionó</span></li>
+      <li><a href="https://www.linkedin.com/in/delatorrequant">LinkedIn</a><span>Proyectos y carrera</span></li>
+      <li><a href="mailto:hola@delatorrequant.com">hola@delatorrequant.com</a><span>Si estás en lo mismo, escríbeme</span></li>
+    </ul>
+  </section>
+</div>
 
-  <div class="sys ghost">
-    <p class="sd" style="margin:0">Aquí van a aparecer los que funcionaron y los que no, con el mismo detalle. <b style="color:var(--co)">Los abandonados no se borran.</b></p>
-  </div>
-</section>
-
-<!-- ═══════════ LINKS ═══════════ -->
-<section class="rev">
-  <div class="stag mono">Dónde estoy</div>
-  <div class="links">
-    <a class="lk" href="https://x.com/delatorrequant">X <span>diario</span></a>
-    <a class="lk" href="https://github.com/delatorrequant">GitHub <span>el código</span></a>
-    <a class="lk" href="#">La Bitácora <span>newsletter semanal</span></a>
-    <a class="lk" href="https://www.linkedin.com/in/delatorrequant">LinkedIn <span>2×/semana</span></a>
-  </div>
-</section>
-
-<!-- ═══════════ PIE ═══════════ -->
-<footer class="rev">
-  Todo el contenido de este sitio es informativo y educativo.
-  <b>No constituye asesoría en inversiones, recomendación individualizada ni oferta de compra
-  o venta de valores.</b> No estoy registrado como Asesor en Inversiones ante la CNBV.
-  Toda inversión implica riesgo de pérdida. Los resultados que publico son en papel,
-  con la metodología abierta, y no predicen resultados futuros.
-  <div style="margin-top:14px">Guadalajara, México · <a href="mailto:hola@delatorrequant.com">hola@delatorrequant.com</a></div>
+<footer>
+  <p class="legal">Todo el contenido de este sitio es informativo y educativo. <b>No constituye asesoría en inversiones, recomendación individualizada ni oferta de compra o venta de valores.</b> No estoy registrado como Asesor en Inversiones ante la CNBV. Toda inversión implica riesgo de pérdida. Los resultados que publico son pruebas en papel, con la metodología abierta, y no predicen resultados futuros.</p>
+  <p class="firma">Diego, @delatorrequant</p>
 </footer>
-
-<div class="sig mono">construido a mano · un solo archivo · sin dependencias</div>
 
 </div>
 
 <script>
-/* ═══════════ TICKER ═══════════ */
-const REGLAS = [
-  "cero señales","cero promesas de ingreso","el código siempre abierto",
-  "los fracasos con el mismo detalle que los éxitos","track record en papel, metodología a la vista",
-  "nunca administrar dinero de terceros","si no tiene número, no se publica",
-  "declaro mis posiciones, siempre"
-];
-document.getElementById('track').innerHTML =
-  [...REGLAS, ...REGLAS].map(r => `<span class="tk mono"><i></i>${r}</span>`).join('');
-
-/* ═══════════ RACHA ═══════════
-   ── EDITA AQUÍ ──
-   Una entrada por día que publicaste. Formato: "AAAA-MM-DD": nivel (1, 2 o 3)
-   1 = publicaste · 2 = publicaste + commit · 3 = artefacto terminado           */
+/* ═══════════ LA RACHA ═══════════
+   EDITA AQUÍ: una línea por día que publicaste, formato "AAAA-MM-DD": nivel
+   1 = publiqué · 2 = publiqué y hubo commit · 3 = terminé un artefacto            */
 const PUB = {
-  // "2026-08-19": 2,
-  // "2026-08-20": 1,
+  // "2026-10-13": 2,
 };
-const INICIO = "2026-08-17";           // domingo de arranque. No lo cambies.
+const INICIO = "2026-08-17";   // domingo de arranque, no lo cambies
 const SEMANAS = 26;
 
-const grid  = document.getElementById('grid');
-const start = new Date(INICIO + "T00:00:00");
-const hoy   = new Date(); hoy.setHours(23, 59, 59, 999);
-// fecha local en AAAA-MM-DD, sin pasar por UTC (toISOString corre el día en algunas zonas)
-const iso = d => d.getFullYear() + '-' +
-  String(d.getMonth() + 1).padStart(2, '0') + '-' +
-  String(d.getDate()).padStart(2, '0');
-
-let total = 0, run = 0;
+const iso = d => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+const cal = document.getElementById("cal");
+const inicio = new Date(INICIO + "T00:00:00");
+const hoyISO = iso(new Date());
+let total = 0, seguidos = 0;
 
 for (let i = 0; i < SEMANAS * 7; i++) {
-  const d = new Date(start); d.setDate(start.getDate() + i);
-  const key = iso(d);
-  const lvl = PUB[key] || 0;
-  if (lvl)              { total++; run++; }
-  else if (d <= hoy)    { run = 0; }
-  const c = document.createElement('div');
-  c.className = 'cell' + (lvl ? ' l' + lvl : '');
-  c.title = key + (lvl ? ' · nivel ' + lvl : ' · sin publicar');
-  grid.appendChild(c);
+  const d = new Date(inicio); d.setDate(inicio.getDate() + i);
+  const k = iso(d), nivel = PUB[k] || 0;
+  const c = document.createElement("i");
+  c.className = "d";
+  if (k > hoyISO) c.classList.add("futuro");
+  else if (nivel) { total++; seguidos++; c.classList.add("l" + nivel); }
+  else if (k !== hoyISO) seguidos = 0;      // hoy todavía no cuenta como día perdido
+  if (k === hoyISO) c.classList.add("hoy");
+  c.title = k + (nivel ? " · nivel " + nivel : "");
+  cal.appendChild(c);
 }
-document.getElementById('days').textContent   = total;
-document.getElementById('streak').textContent = run;
-
-/* ═══════════ REVELADO AL SCROLL ═══════════ */
-const io = new IntersectionObserver(es => {
-  es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
-}, { threshold: .12 });
-document.querySelectorAll('.rev').forEach(el => io.observe(el));
+document.getElementById("dias").textContent = total;
+document.getElementById("seguidos").textContent = seguidos;
 </script>
 </body>
 </html>
